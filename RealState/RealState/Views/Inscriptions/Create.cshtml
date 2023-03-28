@@ -1,0 +1,170 @@
+@model RealState.ViewModels.InscriptionViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h2>Inscription</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Inscription!.attention_number, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.Inscription!.attention_number, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Inscription!.attention_number, "", new { @class = "text-danger" })
+                </div>
+                <h4>CNE</h4>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Cne!.type, new { @class = "control-label" })
+                    @Html.DropDownListFor(m => m.Cne!.type, new SelectList(Enum.GetValues(typeof(Cnes))), new { @class = "dropdown" })
+                    @Html.ValidationMessageFor(m => m.Cne!.type, "", new { @class = "text-danger" })
+                </div>
+                <h4>Localización</h4>
+                <div class="form-group">
+                    <span>
+                        @Html.LabelFor(m => m.Localization!.comuna, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Localization!.comuna, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Localization!.comuna, "", new { @class = "text-danger" })
+                    </span>
+                    <span>
+                        @Html.LabelFor(m => m.Localization!.manzana, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Localization!.manzana, new { @class = "form-control", type = "number"})
+                        @Html.ValidationMessageFor(m => m.Localization!.manzana, "", new { @class = "text-danger" })
+                    </span>
+                    <span>
+                        @Html.LabelFor(m => m.Localization!.predio, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Localization!.predio, new { @class = "form-control", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Localization!.predio, "", new { @class = "text-danger" })
+                    </span>
+                </div>
+                <h4>Enajenantes</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(m => m.Enajenantes![0].Rut)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(m => m.Enajenantes![0].Percentage_right)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(m => m.Enajenantes![0].Check_percentage_not_credited)
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Enajenantes!) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rut)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Percentage_right)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Check_percentage_not_credited)
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    @for (int i = 0; i < 1; i++)
+                    {
+                        @Html.HiddenFor(m => m.Enajenantes![i].id)
+
+                        @Html.LabelFor(m => m.Enajenantes![i].Rut, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Enajenantes![i].Rut, new { @class = "form-control", placeholder = "Sin puntos, ni guión" })
+                        @Html.ValidationMessageFor(m => m.Enajenantes![i].Rut, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(m => m.Enajenantes![i].Percentage_right, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Enajenantes![i].Percentage_right, new { @class = "form-control", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Enajenantes![i].Percentage_right, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(m => m.Enajenantes![i].Check_percentage_not_credited, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Enajenantes![i].Check_percentage_not_credited, new { @class = "form-control", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Enajenantes![i].Check_percentage_not_credited, "", new { @class = "text-danger" })
+                    }
+                    <button type="button" onclick="addEnajenante()">+</button>
+                <h4>Adquirientes</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(m => m.Adquirientes![0].Rut)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(m => m.Adquirientes![0].Percentage_right)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(m => m.Adquirientes![0].Check_percentage_not_credited)
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Adquirientes!) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rut)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Percentage_right)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Check_percentage_not_credited)
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    @for (int i = 0; i < 1; i++)
+                    {
+                        @Html.HiddenFor(m => m.Adquirientes![i].id)
+
+                        @Html.LabelFor(m => m.Adquirientes![i].Rut, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Adquirientes![i].Rut, new { @class = "form-control", placeholder = "Sin puntos, ni guión"})
+                        @Html.ValidationMessageFor(m => m.Adquirientes![i].Rut, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(m => m.Adquirientes![i].Percentage_right, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Adquirientes![i].Percentage_right, new { @class = "form-control", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Adquirientes![i].Percentage_right, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(m => m.Adquirientes![i].Check_percentage_not_credited, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Adquirientes![i].Check_percentage_not_credited, new { @class = "form-control", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Adquirientes![i].Check_percentage_not_credited, "", new { @class = "text-danger" })
+                    }
+                    <button type="button" onclick="addAdquiriente()">+</button>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Inscription!.fojas, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.Inscription!.fojas, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Inscription!.fojas, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Inscription!.date, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.Inscription!.date, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.Inscription!.date, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Inscription!.number, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.Inscription!.number, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Inscription!.number, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,77 @@
+@model IEnumerable<RealState.Models.Inscription>
+
+@{
+    ViewData["Title"] = "Inscripciones";
+}
+
+<h1>Inscripciones</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.attention_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cne!.type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localization!.comuna)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localization!.manzana)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localization!.predio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fojas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.number)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.attention_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cne!.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localization!.comuna)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localization!.manzana)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localization!.predio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fojas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.number)
+            </td>
+            <td>
+                @* <a asp-action="Edit" asp-route-id="@item.id">Edit</a> | *@
+                <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                @* <a asp-action="Delete" asp-route-id="@item.id">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
